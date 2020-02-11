@@ -1,30 +1,42 @@
+import json
+from datetime import datetime
+
 from curblr import CurbLRObject, Feature
 from curblr.manifest import Manifest
+from curblr.utils import time_str
+
+
 class FeatureCollection(CurbLRObject):
-    
-    attrs = ['type', 'features', 'manifest']
+
+    fields = ['type', 'features', 'manifest']
 
     def __init__(self, feat_type='FeatureCollection', features=None, manifest=None):
         self.type = feat_type
-        self.features = features
-        self.manifest = manifest
+        if features:
+            self.features = []
+            for f in features:
+                if isinstance(f, dict):
+                    self.features.append(Feature.from_dict(f))
+                else:
+                    self.features.append(f)
+        else:
+            self.features = features
+        if isinstance(manifest, dict):
+            self.manifest = Manifest.from_dict(manifest)
+        else:
+            self.manifest = manifest
 
     def add_feature(self, feature):
         if not self.features:
             self.features = []
         self.features.append(feature)
 
-    @classmethod
-    def from_dict(cls, d):
-        feat_type = d.get('type') if d.get('type') else 'FetureCollection'
-        features = None
-        if d.get('features'):
-            features = [Feature.from_dict(f) for f in d.get('features')]
-        manifest = None
-        if d.get('manifest'):
-            manifest = Manifest.from_dict(d.get('manifest'))
-
-        return cls(feat_type=feat_type, features=features, manifest=manifest)
-    
     def to_dict(self):
         return super().to_dict(FeatureCollection)
+
+    def save(self, uri, add_timestamp=False):
+        if add_timestamp:
+            uri = uri.replace('.json', '_{}.json'.format(time_str()))
+
+        with open(uri, 'w') as dst:
+            json.dump(self.to_dict(), dst)

@@ -2,10 +2,11 @@ from curblr import CurbLRObject
 from curblr.rule import Rule
 from curblr.userclass import UserClass
 
+
 class Regulation(CurbLRObject):
 
-    attrs = ['rule', 'user_classes', 'time_spans', 'priority', 'payment']
-    
+    fields = ['rule', 'user_classes', 'time_spans', 'priority', 'payment']
+
     def __init__(self,
                  rule,
                  user_classes=None,

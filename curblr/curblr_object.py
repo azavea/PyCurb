@@ -1,29 +1,34 @@
 from abc import ABC, abstractmethod
+
+from curblr.time_rule import TimeRule
 from curblr.utils import from_camelcase, to_camelcase
 
+
 class CurbLRObject(ABC):
-    
-    attrs = []
+
+    fields = []
 
     @classmethod
     def from_dict(cls, d):
         kwargs = {}
-        for a in cls.attrs:
+        for a in cls.fields:
             kwargs[a] = d.get(to_camelcase(a))
-        
+
         return cls(**kwargs)
 
     def to_dict(self, sub_class):
         d = {}
-        for a in sub_class.attrs:
-            attr = self.__getattribute__(a)
-            if attr:
-                cca = to_camelcase(a)
-                if isinstance(attr, list):
-                    d[cca] = [x.to_dict() if isinstance(x, CurbLRObject) else x for x in attr]
+        for f in sub_class.fields:
+            obj = self.__getattribute__(f)
+            if obj:
+                ccf = to_camelcase(f)
+                if isinstance(obj, list):
+                    d[ccf] = [x.to_dict() if isinstance(
+                        x, (CurbLRObject, TimeRule)) else x for x in obj]
                 else:
-                    d[cca] = attr.to_dict() if isinstance(attr, CurbLRObject) else attr
-        
+                    d[ccf] = obj.to_dict() if isinstance(
+                        obj, (CurbLRObject, TimeRule)) else obj
+
         return d
 
     def add_list(self, name, list_attr):

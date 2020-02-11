@@ -1,10 +1,12 @@
 from curblr import CurbLRObject
 from curblr.utils import to_camelcase
 
+
 class UserClass(CurbLRObject):
-    
-    attributes = ['classes', 'subclasses', 'max_height', 'min_height','max_length','min_length','max_weight', 'min_weight']
-    
+
+    fields = ['classes', 'subclasses', 'max_height', 'min_height',
+              'max_length', 'min_length', 'max_weight', 'min_weight']
+
     def __init__(self,
                  classes,
                  subclasses=None,
@@ -22,20 +24,6 @@ class UserClass(CurbLRObject):
         self.min_length = min_length
         self.max_weight = max_weight
         self.min_weight = min_weight
-    
-    @staticmethod
-    def from_dict(d):
-        kwargs = {}
-        for a in UserClass.attributes:
-            arg = to_camelcase(a)
-            kwargs[a] = d.get(arg)
-        
-        return UserClass(**kwargs)
-    
+
     def to_dict(self):
-        d = {}
-        for a in UserClass.attributes:
-            if self.__getattribute__(a):
-                d[to_camelcase(a)] = self.__getattribute__(a)
-        
-        return d
+        return super().to_dict(UserClass)

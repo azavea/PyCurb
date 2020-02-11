@@ -2,6 +2,9 @@ from curblr import Regulation, Location, CurbLRObject
 
 
 class Feature(CurbLRObject):
+
+    fields = ['geometry', 'location', 'regulations', 'images']
+
     def __init__(self, geometry, location=None, regulations=None, images=None):
         self.type = 'Feature'
         self.geometry = geometry
@@ -13,7 +16,7 @@ class Feature(CurbLRObject):
         if not self.regulations:
             self.regulations = []
         self.regulations.append(reg)
-    
+
     def add_image(self, image):
         if not self.images:
             self.images = []
@@ -38,19 +41,12 @@ class Feature(CurbLRObject):
 
         if not keep_shapely:
             d['geometry'] = d['geometry'].__geo_interface__
-        
+
         return d
 
-    def add_location(self, location: Location):
+    def add_location(self, location):
         self.location = Location
 
     @staticmethod
     def from_lr_feature(feature, **kwargs):
-        clrs = Feature(feature['geometry'])
-        location = Location.from_lr_feature(feature, **kwargs)
-        clrs.add_location(location)
-        return clrs
-
-    @staticmethod
-    def from_dict(segment_dict):
-        pass
+        return Feature(feature['geometry'], Location.from_lr_feature(feature, **kwargs))

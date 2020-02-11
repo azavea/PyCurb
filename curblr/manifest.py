@@ -1,10 +1,14 @@
+from datetime import datetime
+
 from curblr import CurbLRObject
 from curblr.authority import Authority
-from datetime import datetime
+
+
 class Manifest(CurbLRObject):
-    attrs = ['time_zone', 'currency', 'authority', 'create_date', 'last_update_date',
-             'unit_height_length', 'unit_weight']
-    
+
+    fields = ['time_zone', 'currency', 'authority', 'create_date', 'last_update_date',
+              'unit_height_length', 'unit_weight']
+
     def __init__(self,
                  time_zone,
                  currency,
@@ -26,4 +30,4 @@ class Manifest(CurbLRObject):
         self.unit_weight = unit_weight
 
     def to_dict(self):
-        return super().to_dict(Manifest)    
+        return super().to_dict(Manifest)
