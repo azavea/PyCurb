@@ -1,2 +1,3 @@
 # PyCurb
-Python library for working with CurbLR data
+
+Library for working with street parking data using the [CurbLR data standard](https://github.com/sharedstreets/curblr).
