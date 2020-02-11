@@ -1,5 +1,6 @@
 from curblr import CurbLRObject
 
+
 class Authority(CurbLRObject):
 
     fields = ['name', 'url', 'phone']
@@ -8,6 +9,6 @@ class Authority(CurbLRObject):
         self.name = name
         self.url = url
         self.phone = phone
-    
+
     def to_dict(self):
         return super().to_dict(Authority)
