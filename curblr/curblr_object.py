@@ -20,7 +20,7 @@ class CurbLRObject(ABC):
         d = {}
         for f in sub_class.fields:
             obj = self.__getattribute__(f)
-            if obj:
+            if obj is not None:
                 ccf = to_camelcase(f)
                 if isinstance(obj, list):
                     d[ccf] = [x.to_dict() if isinstance(
