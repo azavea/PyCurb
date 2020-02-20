@@ -14,8 +14,8 @@ class Regulation(CurbLRObject):
                  priority=None,
                  payment=None):
         self.rule = rule
-        self.user_classes = user_classes
-        self.time_spans = time_spans
+        self.user_classes = None if user_classes == [{}] else user_classes
+        self.time_spans = None if time_spans == [] else time_spans
         self.priority = priority
         self.payment = payment
 

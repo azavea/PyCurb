@@ -1,5 +1,7 @@
 import re
-from datetime import datetime as dt
+from datetime import datetime, time
+
+from curblr.constants import DAYS
 
 
 def from_camelcase(s):
@@ -9,9 +11,9 @@ def from_camelcase(s):
 
 def parse_date(s):
     if len(s.split('-')) < 3:
-        s = '{}-'.format(dt.now().year) + s
+        s = '{}-'.format(datetime.now().year) + s
 
-    return dt.strptime(s, '%Y-%m-%d')
+    return datetime.strptime(s, '%Y-%m-%d')
 
 
 def parse_day_of_month(s):
@@ -58,7 +60,15 @@ def parse_occurrence(ocurrence):
 
 
 def parse_time(s):
+    if isinstance(s, time):
+        return s
+
+    if isinstance(s, datetime):
+        return s.time()
+
     s = str(s)
+    if s == '24':
+        s = '23:59'
     if ':' not in s:
         if len(s) > 4:
             raise Exception(
@@ -70,11 +80,54 @@ def parse_time(s):
         else:
             s += ':00'
 
-    return dt.strptime(s, '%H:%M').time()
+    return datetime.strptime(s, '%H:%M').time()
+
+
+def shift_days(days):
+    dows = DAYS
+
+    if days is None:
+        return days
+
+    for d in days:
+        if d not in dows:
+            raise Exception('{} not a valid day of the week'.format(d))
+
+    if len(days) == len(dows):
+        return days
+    si = dows.index(days[0].lower()) + 1
+    ei = dows.index(days[-1].lower()) + 1
+
+    if si == 7:
+        si = 0
+    if ei == 7:
+        ei = 0
+
+    if ei < si:
+        return dows[si:] + dows[0:ei + 1]
+    return dows[si:ei + 1]
 
 
 def time_str():
-    return dt.now().strftime("%d-%m_%H-%M")
+    return datetime.now().strftime("%m-%d_%H-%M")
+
+
+def time_to_hm(time):
+    if time == 9911:
+        return 'all'
+
+    if time == 9910:
+        return 'school'
+
+    if time > 2400 or time < 0:
+        return None, None
+
+    if len(str(time)) < 3:
+        return 0, time
+
+    h = int(str(time)[:-2])
+    m = int(str(time)[-2:])
+    return h, m
 
 
 def to_camelcase(s):

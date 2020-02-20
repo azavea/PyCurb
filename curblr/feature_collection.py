@@ -10,8 +10,8 @@ class FeatureCollection(CurbLRObject):
 
     fields = ['type', 'features', 'manifest']
 
-    def __init__(self, feat_type='FeatureCollection', features=None, manifest=None):
-        self.type = feat_type
+    def __init__(self, type='FeatureCollection', features=None, manifest=None):
+        self.type = type
         if features:
             self.features = []
             for f in features:
@@ -36,7 +36,15 @@ class FeatureCollection(CurbLRObject):
 
     def save(self, uri, add_timestamp=False):
         if add_timestamp:
-            uri = uri.replace('.json', '_{}.json'.format(time_str()))
+            uri = uri.replace(
+                '.curblr.json', '_{}.curblr.json'.format(time_str()))
 
         with open(uri, 'w') as dst:
-            json.dump(self.to_dict(), dst)
+            json.dump(self.to_dict(), dst, sort_keys=True,
+                      indent=4, separators=(',', ': '))
+
+    @staticmethod
+    def from_file(uri):
+        with open(uri, 'r') as src:
+            d = json.load(src)
+        return FeatureCollection.from_dict(d)

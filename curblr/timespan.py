@@ -27,4 +27,12 @@ class TimeSpan(CurbLRObject):
         self.times_of_day.append(time_of_day)
 
     def to_dict(self):
-        return super().to_dict(TimeSpan)
+        d = super().to_dict(TimeSpan)
+        if d == {}:
+            return None
+        return d
+
+    def is_empty(self):
+        if not self.to_dict():
+            return True
+        return False
