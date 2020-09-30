@@ -1,6 +1,4 @@
 from pycurb import PyCurbObject
-from pycurb.rule import Rule
-from pycurb.userclass import UserClass
 
 
 class Regulation(PyCurbObject):

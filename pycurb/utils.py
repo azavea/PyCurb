@@ -1,5 +1,5 @@
-import re
 from datetime import datetime, time
+import re
 
 from pycurb.constants import DAYS
 

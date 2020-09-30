@@ -1,6 +1,4 @@
 from pycurb import PyCurbObject
-from pycurb.authority import Authority
-from pycurb.utils import from_camelcase
 from pycurb.constants import ACTIVITIES
 
 

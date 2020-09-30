@@ -1,7 +1,12 @@
-from abc import ABC, abstractmethod
+from abc import ABC
 
-from pycurb.utils import (from_camelcase, parse_date, parse_day_of_month,
-                          parse_day_of_week, parse_occurrence, parse_time)
+from pycurb.utils import (
+    parse_date,
+    parse_day_of_month,
+    parse_day_of_week,
+    parse_occurrence,
+    parse_time
+)
 
 
 class TimeRule(ABC):

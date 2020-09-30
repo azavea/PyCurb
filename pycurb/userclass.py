@@ -1,5 +1,4 @@
 from pycurb import PyCurbObject
-from pycurb.utils import to_camelcase
 
 
 class UserClass(PyCurbObject):

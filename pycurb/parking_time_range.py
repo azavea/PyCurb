@@ -2,7 +2,6 @@ from datetime import datetime
 
 from pycurb.constants import DAYS
 from pycurb.parking_time import AllTime, ParkingTime, SchoolTime
-from pycurb.timespan import TimeSpan
 from pycurb.utils import shift_days
 
 

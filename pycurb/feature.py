@@ -5,8 +5,7 @@ from shapely.geometry import LineString, shape
 from pycurb import PyCurbObject, Location
 from pycurb.constants import DAYS
 from pycurb.parking_time import ParkingTime
-from pycurb.parking_time_range import (HourParkingTimeRange, ParkingTimeRange,
-                                       RuleParkingTimeRange)
+from pycurb.parking_time_range import (HourParkingTimeRange, RuleParkingTimeRange)
 from pycurb.regulation import Regulation
 from pycurb.time_rule import DaysOfWeek, TimeOfDay
 from pycurb.timespan import TimeSpan
@@ -126,8 +125,10 @@ class Feature(PyCurbObject):
                     if ranges[0][0] != z:
                         available[k].append((z, ranges[0][0]))
                     if len(ranges) > 1:
-                        available[k] += [(ranges[i-1][1], ranges[i][0])
-                                        for i in range(1, len(ranges))]
+                        available[k] += [
+                            (ranges[i-1][1], ranges[i][0])
+                            for i in range(1, len(ranges))
+                        ]
                     if ranges[-1][1] != m:
                         available[k].append((ranges[-1][1], m))
 

@@ -1,7 +1,7 @@
-from abc import ABC, abstractmethod
+from abc import ABC
 
 from pycurb.time_rule import TimeRule
-from pycurb.utils import from_camelcase, to_camelcase
+from pycurb.utils import to_camelcase
 
 
 class PyCurbObject(ABC):

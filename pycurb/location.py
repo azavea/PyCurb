@@ -1,5 +1,3 @@
-from uuid import uuid1
-
 from pycurb import PyCurbObject
 
 

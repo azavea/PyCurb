@@ -1,5 +1,4 @@
 import json
-from datetime import datetime
 
 from pycurb import PyCurbObject, Feature
 from pycurb.manifest import Manifest
