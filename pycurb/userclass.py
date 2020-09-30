@@ -1,8 +1,8 @@
-from curblr import CurbLRObject
-from curblr.utils import to_camelcase
+from pycurb import PyCurbObject
+from pycurb.utils import to_camelcase
 
 
-class UserClass(CurbLRObject):
+class UserClass(PyCurbObject):
 
     fields = ['classes', 'subclasses', 'max_height', 'min_height',
               'max_length', 'min_length', 'max_weight', 'min_weight']

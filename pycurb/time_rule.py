@@ -1,6 +1,6 @@
 from abc import ABC, abstractmethod
 
-from curblr.utils import (from_camelcase, parse_date, parse_day_of_month,
+from pycurb.utils import (from_camelcase, parse_date, parse_day_of_month,
                           parse_day_of_week, parse_occurrence, parse_time)
 
 

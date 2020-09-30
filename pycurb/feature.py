@@ -2,17 +2,17 @@ from datetime import time
 
 from shapely.geometry import LineString, shape
 
-from curblr import CurbLRObject, Location
-from curblr.constants import DAYS
-from curblr.parking_time import ParkingTime
-from curblr.parking_time_range import (HourParkingTimeRange, ParkingTimeRange,
+from pycurb import PyCurbObject, Location
+from pycurb.constants import DAYS
+from pycurb.parking_time import ParkingTime
+from pycurb.parking_time_range import (HourParkingTimeRange, ParkingTimeRange,
                                        RuleParkingTimeRange)
-from curblr.regulation import Regulation
-from curblr.time_rule import DaysOfWeek, TimeOfDay
-from curblr.timespan import TimeSpan
+from pycurb.regulation import Regulation
+from pycurb.time_rule import DaysOfWeek, TimeOfDay
+from pycurb.timespan import TimeSpan
 
 
-class Feature(CurbLRObject):
+class Feature(PyCurbObject):
 
     fields = ['geometry', 'location', 'regulations', 'images']
 
@@ -70,7 +70,7 @@ class Feature(CurbLRObject):
         for r in self.regulations:
             if r.rule.activity.startswith('no') and r.user_classes and len(r.user_classes) > 0:
                 continue
-            
+
             if not r.time_spans:
                 return
             else:
@@ -148,7 +148,7 @@ class Feature(CurbLRObject):
                 else:
                     tods = [TimeOfDay(s, e) for s, e in times]
                 timespans.append(TimeSpan(days_of_week=dow, times_of_day=tods))
-        
+
         if timespans != []:
             self.regulations.append(Regulation(
                 default_parking_rule, time_spans=timespans))

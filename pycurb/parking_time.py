@@ -1,4 +1,4 @@
-from curblr.utils import time_to_hm
+from pycurb.utils import time_to_hm
 
 
 class ParkingTime(object):

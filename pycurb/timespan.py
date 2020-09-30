@@ -1,7 +1,7 @@
-from curblr import CurbLRObject
+from pycurb import PyCurbObject
 
 
-class TimeSpan(CurbLRObject):
+class TimeSpan(PyCurbObject):
 
     fields = ['effective_dates', 'days_of_week',
               'days_of_month', 'times_of_day', 'designated_periods']

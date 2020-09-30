@@ -1,10 +1,10 @@
 from datetime import datetime
 
-from curblr import CurbLRObject
-from curblr.authority import Authority
+from pycurb import PyCurbObject
+from pycurb.authority import Authority
 
 
-class Manifest(CurbLRObject):
+class Manifest(PyCurbObject):
 
     fields = ['time_zone', 'currency', 'authority', 'create_date', 'last_update_date',
               'unit_height_length', 'unit_weight']

@@ -1,13 +1,13 @@
 from datetime import datetime
 
-from curblr.constants import DAYS
-from curblr.parking_time import AllTime, ParkingTime, SchoolTime
-from curblr.timespan import TimeSpan
-from curblr.utils import shift_days
+from pycurb.constants import DAYS
+from pycurb.parking_time import AllTime, ParkingTime, SchoolTime
+from pycurb.timespan import TimeSpan
+from pycurb.utils import shift_days
 
 
 class ParkingTimeRange(object):
-    """ 
+    """
     A day-agnostic time range
     """
 
@@ -62,7 +62,7 @@ class RuleParkingTimeRange(ParkingTimeRange):
 
 class HourParkingTimeRange(ParkingTimeRange):
     """
-    A parking time range that only applies to one day 
+    A parking time range that only applies to one day
     """
 
     def __init__(self, start: ParkingTime, end: ParkingTime, day: str):

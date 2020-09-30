@@ -1,12 +1,12 @@
 import json
 from datetime import datetime
 
-from curblr import CurbLRObject, Feature
-from curblr.manifest import Manifest
-from curblr.utils import time_str
+from pycurb import PyCurbObject, Feature
+from pycurb.manifest import Manifest
+from pycurb.utils import time_str
 
 
-class FeatureCollection(CurbLRObject):
+class FeatureCollection(PyCurbObject):
 
     fields = ['type', 'features', 'manifest']
 
@@ -37,7 +37,7 @@ class FeatureCollection(CurbLRObject):
     def save(self, uri, add_timestamp=False):
         if add_timestamp:
             uri = uri.replace(
-                '.curblr.json', '_{}.curblr.json'.format(time_str()))
+                '.pycurb.json', '_{}.pycurb.json'.format(time_str()))
 
         with open(uri, 'w') as dst:
             json.dump(self.to_dict(), dst, sort_keys=True,

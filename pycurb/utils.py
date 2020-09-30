@@ -1,7 +1,7 @@
 import re
 from datetime import datetime, time
 
-from curblr.constants import DAYS
+from pycurb.constants import DAYS
 
 
 def from_camelcase(s):
