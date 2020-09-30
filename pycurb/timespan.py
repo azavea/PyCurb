@@ -3,8 +3,10 @@ from pycurb import PyCurbObject
 
 class TimeSpan(PyCurbObject):
 
-    fields = ['effective_dates', 'days_of_week',
-              'days_of_month', 'times_of_day', 'designated_periods']
+    fields = [
+        'effective_dates', 'days_of_week', 'days_of_month', 'times_of_day',
+        'designated_periods'
+    ]
 
     def __init__(self,
                  effective_dates=None,

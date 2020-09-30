@@ -1,12 +1,7 @@
 from abc import ABC
 
-from pycurb.utils import (
-    parse_date,
-    parse_day_of_month,
-    parse_day_of_week,
-    parse_occurrence,
-    parse_time
-)
+from pycurb.utils import (parse_date, parse_day_of_month, parse_day_of_week,
+                          parse_occurrence, parse_time)
 
 
 class TimeRule(ABC):
@@ -21,7 +16,8 @@ class DaysOfWeek(TimeRule):
         self.occurences_in_month = None
         if occurences_in_month:
             self.occurences_in_month = [
-                parse_occurrence(o) for o in occurences_in_month]
+                parse_occurrence(o) for o in occurences_in_month
+            ]
 
     @staticmethod
     def from_dict(d):
@@ -107,4 +103,7 @@ class TimeOfDay(TimeRule):
         st_m = str(self.time_from.minute).zfill(2)
         en_h = str(self.time_to.hour).zfill(2)
         en_m = str(self.time_to.minute).zfill(2)
-        return {'from': '{}:{}'.format(st_h, st_m), 'to': '{}:{}'.format(en_h, en_m)}
+        return {
+            'from': '{}:{}'.format(st_h, st_m),
+            'to': '{}:{}'.format(en_h, en_m)
+        }

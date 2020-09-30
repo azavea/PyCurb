@@ -5,7 +5,8 @@ from shapely.geometry import LineString, shape
 from pycurb import PyCurbObject, Location
 from pycurb.constants import DAYS
 from pycurb.parking_time import ParkingTime
-from pycurb.parking_time_range import (HourParkingTimeRange, RuleParkingTimeRange)
+from pycurb.parking_time_range import (HourParkingTimeRange,
+                                       RuleParkingTimeRange)
 from pycurb.regulation import Regulation
 from pycurb.time_rule import DaysOfWeek, TimeOfDay
 from pycurb.timespan import TimeSpan
@@ -67,7 +68,8 @@ class Feature(PyCurbObject):
         available = {d: [] for d in DAYS}
 
         for r in self.regulations:
-            if r.rule.activity.startswith('no') and r.user_classes and len(r.user_classes) > 0:
+            if r.rule.activity.startswith('no') and r.user_classes and len(
+                    r.user_classes) > 0:
                 continue
 
             if not r.time_spans:
@@ -76,17 +78,19 @@ class Feature(PyCurbObject):
                 for t in r.time_spans:
                     days = t.days_of_week.days if t.days_of_week else DAYS
                     if not t.times_of_day:
-                        rpts = [RuleParkingTimeRange(ParkingTime.from_datetime(
-                            z), ParkingTime.from_datetime(m), days)]
+                        rpts = [
+                            RuleParkingTimeRange(ParkingTime.from_datetime(z),
+                                                 ParkingTime.from_datetime(m),
+                                                 days)
+                        ]
                     else:
                         rpts = RuleParkingTimeRange.from_time_span(t)
 
                     for rpt in rpts:
                         for day in days:
-                            hpt = HourParkingTimeRange(ParkingTime.from_datetime(rpt.start),
-                                                       ParkingTime.from_datetime(
-                                                           rpt.end),
-                                                       day)
+                            hpt = HourParkingTimeRange(
+                                ParkingTime.from_datetime(rpt.start),
+                                ParkingTime.from_datetime(rpt.end), day)
                             restricted[day].append(hpt)
 
         if all([len(x) == 0 for x in restricted.values()]):
@@ -125,10 +129,8 @@ class Feature(PyCurbObject):
                     if ranges[0][0] != z:
                         available[k].append((z, ranges[0][0]))
                     if len(ranges) > 1:
-                        available[k] += [
-                            (ranges[i-1][1], ranges[i][0])
-                            for i in range(1, len(ranges))
-                        ]
+                        available[k] += [(ranges[i - 1][1], ranges[i][0])
+                                         for i in range(1, len(ranges))]
                     if ranges[-1][1] != m:
                         available[k].append((ranges[-1][1], m))
 
@@ -151,18 +153,20 @@ class Feature(PyCurbObject):
                 timespans.append(TimeSpan(days_of_week=dow, times_of_day=tods))
 
         if timespans != []:
-            self.regulations.append(Regulation(
-                default_parking_rule, time_spans=timespans))
+            self.regulations.append(
+                Regulation(default_parking_rule, time_spans=timespans))
 
     @staticmethod
     def from_dict(d):
         location = Location.from_dict(d['properties']['location'])
-        regulations = [Regulation.from_dict(r)
-                       for r in d['properties']['regulations']]
+        regulations = [
+            Regulation.from_dict(r) for r in d['properties']['regulations']
+        ]
         geometry = d['geometry']
         images = d.get('images')
         return Feature(geometry, location, regulations, images)
 
     @staticmethod
     def from_lr_feature(feature, **kwargs):
-        return Feature(feature['geometry'], Location.from_lr_feature(feature, **kwargs))
+        return Feature(feature['geometry'],
+                       Location.from_lr_feature(feature, **kwargs))

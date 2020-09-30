@@ -9,7 +9,6 @@ class ParkingTimeRange(object):
     """
     A day-agnostic time range
     """
-
     def __init__(self, start: ParkingTime, end: ParkingTime):
         self.invalid = False
         self.all_time = False
@@ -44,7 +43,6 @@ class RuleParkingTimeRange(ParkingTimeRange):
     """
     A parking time range that repeats over several days
     """
-
     def __init__(self, start: ParkingTime, end: ParkingTime, days: list):
         super().__init__(start, end)
         self.days = days
@@ -53,17 +51,19 @@ class RuleParkingTimeRange(ParkingTimeRange):
 
     @staticmethod
     def from_time_span(time_span):
-        time_pairs = [(ParkingTime.from_datetime(tod.time_from), ParkingTime.from_datetime(
-            tod.time_to)) for tod in time_span.times_of_day]
+        time_pairs = [(ParkingTime.from_datetime(tod.time_from),
+                       ParkingTime.from_datetime(tod.time_to))
+                      for tod in time_span.times_of_day]
         days = time_span.days_of_week.days if time_span.days_of_week else DAYS
-        return [RuleParkingTimeRange(start, end, days) for start, end in time_pairs]
+        return [
+            RuleParkingTimeRange(start, end, days) for start, end in time_pairs
+        ]
 
 
 class HourParkingTimeRange(ParkingTimeRange):
     """
     A parking time range that only applies to one day
     """
-
     def __init__(self, start: ParkingTime, end: ParkingTime, day: str):
         super().__init__(start, end)
         self.day = day
@@ -117,9 +117,9 @@ def get_rpts(start: ParkingTime, end: ParkingTime, days: list):
     if start.hour <= end.hour:
         return [RuleParkingTimeRange(start, end, days)]
     if start.hour > end.hour:
-        rpt1 = RuleParkingTimeRange(ParkingTime(
-            start.hour), ParkingTime(24), days)
-        rpt2 = RuleParkingTimeRange(ParkingTime(
-            0), ParkingTime(end.hour), shift_days(days))
+        rpt1 = RuleParkingTimeRange(ParkingTime(start.hour), ParkingTime(24),
+                                    days)
+        rpt2 = RuleParkingTimeRange(ParkingTime(0), ParkingTime(end.hour),
+                                    shift_days(days))
 
         return [rpt1, rpt2]

@@ -3,8 +3,10 @@ from pycurb import PyCurbObject
 
 class UserClass(PyCurbObject):
 
-    fields = ['classes', 'subclasses', 'max_height', 'min_height',
-              'max_length', 'min_length', 'max_weight', 'min_weight']
+    fields = [
+        'classes', 'subclasses', 'max_height', 'min_height', 'max_length',
+        'min_length', 'max_weight', 'min_weight'
+    ]
 
     def __init__(self,
                  classes,

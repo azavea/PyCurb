@@ -35,12 +35,15 @@ class FeatureCollection(PyCurbObject):
 
     def save(self, uri, add_timestamp=False):
         if add_timestamp:
-            uri = uri.replace(
-                '.pycurb.json', '_{}.pycurb.json'.format(time_str()))
+            uri = uri.replace('.pycurb.json',
+                              '_{}.pycurb.json'.format(time_str()))
 
         with open(uri, 'w') as dst:
-            json.dump(self.to_dict(), dst, sort_keys=True,
-                      indent=4, separators=(',', ': '))
+            json.dump(self.to_dict(),
+                      dst,
+                      sort_keys=True,
+                      indent=4,
+                      separators=(',', ': '))
 
     @staticmethod
     def from_file(uri):

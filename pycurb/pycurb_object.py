@@ -23,8 +23,11 @@ class PyCurbObject(ABC):
             if obj is not None:
                 ccf = to_camelcase(f)
                 if isinstance(obj, list):
-                    d[ccf] = [x.to_dict() if isinstance(
-                        x, (PyCurbObject, TimeRule)) else x for x in obj]
+                    d[ccf] = [
+                        x.to_dict() if isinstance(x, (PyCurbObject,
+                                                      TimeRule)) else x
+                        for x in obj
+                    ]
                 else:
                     d[ccf] = obj.to_dict() if isinstance(
                         obj, (PyCurbObject, TimeRule)) else obj

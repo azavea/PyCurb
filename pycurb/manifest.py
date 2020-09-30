@@ -6,8 +6,10 @@ from pycurb.authority import Authority
 
 class Manifest(PyCurbObject):
 
-    fields = ['time_zone', 'currency', 'authority', 'create_date', 'last_update_date',
-              'unit_height_length', 'unit_weight']
+    fields = [
+        'time_zone', 'currency', 'authority', 'create_date',
+        'last_update_date', 'unit_height_length', 'unit_weight'
+    ]
 
     def __init__(self,
                  time_zone,

@@ -29,8 +29,15 @@ def parse_day_of_month(s):
 def parse_day_of_week(day):
     day = day.lower()
 
-    sd = {'m': 'mo', 't': 'tu', 'w': 'we',
-          'r': 'th', 'f': 'fr', 's': 'sa', 'u': 'su'}
+    sd = {
+        'm': 'mo',
+        't': 'tu',
+        'w': 'we',
+        'r': 'th',
+        'f': 'fr',
+        's': 'sa',
+        'u': 'su'
+    }
     if len(day) == 1:
         return sd.get(day)
 
@@ -72,7 +79,8 @@ def parse_time(s):
     if ':' not in s:
         if len(s) > 4:
             raise Exception(
-                'Unknown time string format "{}" must be in format %H:%M'.format(s))
+                'Unknown time string format "{}" must be in format %H:%M'.
+                format(s))
         elif len(s) == 4:
             s = s[0:2] + ':' + s[2:4]
         elif len(s) == 3:

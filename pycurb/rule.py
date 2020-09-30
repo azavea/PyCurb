@@ -4,8 +4,9 @@ from pycurb.constants import ACTIVITIES
 
 class Rule(PyCurbObject):
 
-    fields = ['activity', 'reason', 'max_stay',
-              'no_return', 'payment', 'authority']
+    fields = [
+        'activity', 'reason', 'max_stay', 'no_return', 'payment', 'authority'
+    ]
 
     def __init__(self,
                  activity,
