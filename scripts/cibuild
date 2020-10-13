@@ -2,7 +2,8 @@
 
 set -e
 
-if [[ -n "${CI}" ]]; then
+if [[ -n "${CI}" ]]; 
+then
     set -x
 fi
 
@@ -13,14 +14,30 @@ Setup CI environment and execute tests.
 "
 }
 
-if [ "${BASH_SOURCE[0]}" = "${0}" ]; then
-    if [ "${1:-}" = "--help" ]; then
-        usage
-    else
-        # Install/upgrade dependencies
-        python -m pip install --upgrade pip
-        pip install -r requirements-dev.txt
+function ci() {
+    # Install/upgrade dependencies
+    python -m pip install --upgrade pip
+    pip install -r requirements-dev.txt
 
-        ./scripts/test
+    ./scripts/test
+}
+
+if [ "${BASH_SOURCE[0]}" = "${0}" ]; 
+then
+    if [ "${1:-}" = "--help" ]; 
+    then
+        usage
+    # use '--local' flag to run in venv locally
+    elif [ "${1:-}" = "--local" ]; 
+    then
+        python3 -m pip install --user virtualenv
+        python3 -m venv env
+        source env/bin/activate
+        
+        ci
+        
+        deactivate
+    else
+        ci
     fi
 fi
