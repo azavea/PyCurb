@@ -1,12 +1,13 @@
-from uuid import uuid1
-
-from curblr import CurbLRObject
+from pycurb import PyCurbObject
 
 
-class Location(CurbLRObject):
+class Location(PyCurbObject):
 
-    fields = ['shst_ref_id', 'side_of_street', 'shst_location_start', 'shst_location_end',
-              'derived_from', 'object_id', 'marker', 'bays_angle', 'bays_count', 'street_name']
+    fields = [
+        'shst_ref_id', 'side_of_street', 'shst_location_start',
+        'shst_location_end', 'derived_from', 'object_id', 'marker',
+        'bays_angle', 'bays_count', 'street_name'
+    ]
 
     def __init__(self,
                  shst_ref_id,

@@ -1,12 +1,17 @@
-from curblr import CurbLRObject
-from curblr.utils import from_camelcase, to_camelcase
+from pycurb import PyCurbObject
 
 
-class Payment(CurbLRObject):
+class Payment(PyCurbObject):
 
     fields = ['rates', 'methods', 'forms', 'operator', 'phone', 'device_ids']
 
-    def __init__(self, rates=None, methods=None, forms=None, operator=None, phone=None, device_ids=None):
+    def __init__(self,
+                 device_ids=None,
+                 forms=None,
+                 methods=None,
+                 operator=None,
+                 phone=None,
+                 rates=None):
         self.rates = []
         self.methods = []
         self.forms = []
@@ -24,7 +29,7 @@ class Payment(CurbLRObject):
         return super().to_dict(Payment)
 
 
-class Rate(CurbLRObject):
+class Rate(PyCurbObject):
 
     fields = ['fees', 'durations', 'time_spans']
 

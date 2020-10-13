@@ -1,13 +1,12 @@
-from curblr import CurbLRObject
-from curblr.authority import Authority
-from curblr.utils import from_camelcase
-from curblr.constants import ACTIVITIES
+from pycurb import PyCurbObject
+from pycurb.constants import ACTIVITIES
 
 
-class Rule(CurbLRObject):
+class Rule(PyCurbObject):
 
-    fields = ['activity', 'reason', 'max_stay',
-              'no_return', 'payment', 'authority']
+    fields = [
+        'activity', 'reason', 'max_stay', 'no_return', 'payment', 'authority'
+    ]
 
     def __init__(self,
                  activity,

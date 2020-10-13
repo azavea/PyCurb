@@ -1,10 +1,10 @@
-from abc import ABC, abstractmethod
+from abc import ABC
 
-from curblr.time_rule import TimeRule
-from curblr.utils import from_camelcase, to_camelcase
+from pycurb.time_rule import TimeRule
+from pycurb.utils import to_camelcase
 
 
-class CurbLRObject(ABC):
+class PyCurbObject(ABC):
 
     fields = []
 
@@ -23,11 +23,14 @@ class CurbLRObject(ABC):
             if obj is not None:
                 ccf = to_camelcase(f)
                 if isinstance(obj, list):
-                    d[ccf] = [x.to_dict() if isinstance(
-                        x, (CurbLRObject, TimeRule)) else x for x in obj]
+                    d[ccf] = [
+                        x.to_dict() if isinstance(x, (PyCurbObject,
+                                                      TimeRule)) else x
+                        for x in obj
+                    ]
                 else:
                     d[ccf] = obj.to_dict() if isinstance(
-                        obj, (CurbLRObject, TimeRule)) else obj
+                        obj, (PyCurbObject, TimeRule)) else obj
 
         return d
 

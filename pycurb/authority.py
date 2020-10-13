@@ -1,7 +1,7 @@
-from curblr import CurbLRObject
+from pycurb import PyCurbObject
 
 
-class Authority(CurbLRObject):
+class Authority(PyCurbObject):
 
     fields = ['name', 'url', 'phone']
 

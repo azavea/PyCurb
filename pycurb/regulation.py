@@ -1,9 +1,7 @@
-from curblr import CurbLRObject
-from curblr.rule import Rule
-from curblr.userclass import UserClass
+from pycurb import PyCurbObject
 
 
-class Regulation(CurbLRObject):
+class Regulation(PyCurbObject):
 
     fields = ['rule', 'user_classes', 'time_spans', 'priority', 'payment']
 
