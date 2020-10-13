@@ -53,6 +53,8 @@ time_of_day.to_dict()
 
 Install all dependencies in `requirements-dev.txt`:
 
+If necessary, create an isolated Python development environment with [venv](https://docs.python.org/3/library/venv.html) or [Docker](https://hub.docker.com/_/python).
+
 ```shell
 pip install -r requirements-dev.txt
 ```
