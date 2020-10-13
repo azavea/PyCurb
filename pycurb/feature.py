@@ -2,11 +2,10 @@ from datetime import time
 
 from shapely.geometry import LineString, shape
 
-from pycurb import PyCurbObject, Location
+from pycurb import Location, PyCurbObject
 from pycurb.constants import DAYS
 from pycurb.parking_time import ParkingTime
-from pycurb.parking_time_range import (HourParkingTimeRange,
-                                       RuleParkingTimeRange)
+from pycurb.parking_time_range import HourParkingTimeRange, RuleParkingTimeRange
 from pycurb.regulation import Regulation
 from pycurb.time_rule import DaysOfWeek, TimeOfDay
 from pycurb.timespan import TimeSpan
@@ -149,7 +148,7 @@ class Feature(PyCurbObject):
                 if times == [(z, m)]:
                     tods = None
                 else:
-                    tods = [TimeOfDay(s, e) for s, e in times]
+                    tods = [TimeOfDay(start, end) for start, end in times]
                 timespans.append(TimeSpan(days_of_week=dow, times_of_day=tods))
 
         if timespans != []:
