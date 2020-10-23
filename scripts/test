@@ -18,14 +18,14 @@ if [ "${BASH_SOURCE[0]}" = "${0}" ]; then
     if [ "${1:-}" = "--help" ]; then
         usage
     else
+        # Test suite with coverage enabled
+        coverage run --source=pycurb/ -m unittest discover tests/
+        coverage xml
+        
         # Lint
         flake8 pycurb tests
 
         # Code formatting
         yapf -dpr pycurb tests
-
-        # Test suite with coverage enabled
-        coverage run --source=pycurb/ -m unittest discover tests/
-        coverage xml
     fi
 fi
