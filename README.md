@@ -6,6 +6,11 @@ Library for working with street parking data using the [CurbLR data standard](ht
 
 PyCurb is currently in development and must be installed locally.
 
+To install dependencies:
+```
+pip install -r requirements-dev.txt
+```
+
 ## Documentation
 
 PyCurb Key Features:
