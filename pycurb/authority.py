@@ -1,14 +1,13 @@
+from typing import Optional
+
 from pycurb import PyCurbObject
 
 
 class Authority(PyCurbObject):
 
-    fields = ['name', 'url', 'phone']
+    name: Optional[str] = None
+    url: Optional[str] = None
+    phone_number: Optional[str] = None
 
-    def __init__(self, name=None, url=None, phone=None):
-        self.name = name
-        self.url = url
-        self.phone = phone
-
-    def to_dict(self):
-        return super().to_dict(Authority)
+    def __init__(self, **kwargs):
+        super().__init__(**kwargs)
