@@ -1,0 +1,50 @@
+{
+    "type": "Feature",
+    "properties": {
+        "end": 55,
+        "endSideOfStreet": "right",
+        "gisFromIntersectionId": "1020b3a1a7182568ba163bbf49f34e50",
+        "gisGeometryId": "63d25efa34ebb56cdd6451f81f3aa45e",
+        "gisReferenceId": "faca1388850a41d7576e94973b92319a",
+        "gisSegmentIndex": 2,
+        "gisToIntersectionId": "8d6b8123e112528bc157fc5440e6e092",
+        "gisTotalSegments": 3,
+        "matchType": "hmm",
+        "pp_block": "2200",
+        "pp_created_by": "FieldEditor1",
+        "pp_created_da": null,
+        "asset_type": "sign",
+        "pp_created_on": "2019-02-22",
+        "pp_created_us": null,
+        "pp_edited_on": "2019-07-09",
+        "pp_last_edi_1": null,
+        "pp_status": null,
+        "pp_length": 4,
+        "pp_derived": ["sign_452", "sign_204"],
+        "pp_metering": "No Meters",
+        "pp_objectid": "87580",
+        "pp_permitexce": "No",
+        "pp_permitzone": 0,
+        "pp_shape_leng": 139.87487887200001,
+        "pp_street": "92nd St",
+        "pp_parking_angle": "parallel",
+        "pp_towzone": "Yes",
+        "radius": null,
+        "referenceLength": 12.85,
+        "score": 2.77,
+        "shstFromIntersectionId": "ff18be96c0370d2a28cf2c1bda6b563d",
+        "shstGeometryId": "cb47907e6763e95bf9fb78c15c1e84dc",
+        "shstReferenceId": "324af8ba918d9a2921b1fe6f9723d729",
+        "shstToIntersectionId": "2f6c33fab64f4fd4c45f4d5ea865caf6",
+        "sideOfStreet": "right",
+        "start": 51,
+        "startSideOfStreet": "right"
+    },
+    "geometry": {
+        "type": "LineString",
+        "coordinates": [
+            [-75.176418022375429, 39.957051743296766],
+            [-75.176566622375432, 39.957069643296762]
+        ]
+    }
+}

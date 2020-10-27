@@ -1,36 +1,25 @@
 from abc import ABC
 
-from pycurb.time_rule import TimeRule
-from pycurb.utils import to_camelcase
+from pycurb.utils import to_camelcase, from_camelcase
+
+from pydantic import BaseModel
 
 
-class PyCurbObject(ABC):
-
-    fields = []
+class PyCurbObject(ABC, BaseModel):
+    class Config:
+        arbitrary_types_allowed = True
 
     @classmethod
     def from_dict(cls, d):
-        kwargs = {}
-        for a in cls.fields:
-            kwargs[a] = d.get(to_camelcase(a))
+        d = {from_camelcase(k): v for k, v in d.items() if v is not None}
 
-        return cls(**kwargs)
+        return cls(**d)
 
-    def to_dict(self, sub_class):
-        d = {}
-        for f in sub_class.fields:
-            obj = self.__getattribute__(f)
-            if obj is not None:
-                ccf = to_camelcase(f)
-                if isinstance(obj, list):
-                    d[ccf] = [
-                        x.to_dict() if isinstance(x, (PyCurbObject,
-                                                      TimeRule)) else x
-                        for x in obj
-                    ]
-                else:
-                    d[ccf] = obj.to_dict() if isinstance(
-                        obj, (PyCurbObject, TimeRule)) else obj
+    def to_dict(self):
+        d = self.dict()
+
+        # convert all the keys to camelcase and remove Null values
+        d = {to_camelcase(k): v for k, v in d.items() if v is not None}
 
         return d
 

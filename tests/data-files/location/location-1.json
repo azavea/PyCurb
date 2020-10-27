@@ -1,0 +1,11 @@
+{
+    "shstRefId": "324af8ba918d9a2921b1fe6f9723d729",
+    "shstLocationStart": 51,
+    "shstLocationEnd": 55,
+    "sideOfStreet": "right",
+    "objectId": "87580",
+    "derivedFrom": ["sign_452", "sign_204"],
+    "assetType": "sign",
+    "streetName": "92nd St",
+    "baysAngle": "parallel"
+  }

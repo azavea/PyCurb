@@ -1,6 +1,8 @@
 from datetime import datetime, time
 import re
 
+from dateutil import parser
+
 from pycurb.constants import DAYS
 
 
@@ -10,10 +12,7 @@ def from_camelcase(s):
 
 
 def parse_date(s):
-    if len(s.split('-')) < 3:
-        s = '{}-'.format(datetime.now().year) + s
-
-    return datetime.strptime(s, '%Y-%m-%d')
+    return parser.parse(s)
 
 
 def parse_day_of_month(s):
@@ -139,9 +138,20 @@ def time_to_hm(time):
 
 
 def to_camelcase(s):
+    if s is None:
+        return s
+
+    if isinstance(s, int):
+        s = str(s)
+
     if s == '':
         return s
-    w = s.split('_')
+
+    w = re.split('_| ', s)
+
     if len(w) == 1:
-        return s.lower()
+        s = s[0].lower() + s[1:]
+
+        return s
+
     return w[0].lower() + ''.join([x.capitalize() for x in w[1:]])

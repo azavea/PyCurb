@@ -9,7 +9,7 @@ fi
 function usage() {
     echo -n \
         "Usage: $(basename "$0")
-Setup CI environment and execute tests.
+Format code using yapf
 "
 }
 
@@ -20,8 +20,7 @@ if [ "${BASH_SOURCE[0]}" = "${0}" ]; then
         # Install/upgrade dependencies
         python -m pip install --upgrade pip
         pip install -r requirements-dev.txt
-        pip install -r requirements.txt
 
-        ./scripts/test
+        yapf -ipr tests pycurb
     fi
 fi
