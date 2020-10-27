@@ -1,7 +1,7 @@
 import json
 from unittest import TestCase
 
-from pycurb.authority import Authority
+from pycurb.manifest import Authority
 from tests.utils.test_cases import get_path
 
 

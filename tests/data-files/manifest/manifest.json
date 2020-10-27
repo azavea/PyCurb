@@ -1,0 +1,18 @@
+{
+    "authority": {
+        "name" : "a parking authority",
+        "url": "www.aparkingauthority.com",
+        "phone": "888-888-888"
+    },
+    "createdDate": "2020-05-22T15:57:07",
+    "curblrVersion": "1.1.0",
+    "currency": "USD",
+    "priorityHierarchy": [
+        "no standing", "snow emergency zone", "construction", "game day", 
+        "special event", "street cleaning", "temporary", "standing", 
+        "no loading", "loading", "no parking", "paid parking", "parking"
+    ],
+    "timeZone": "EET",
+    "unitHeightLength": "feet",
+    "unitWeight": "pounds"
+}
