@@ -1,68 +1,89 @@
+from typing import List, Optional
+from enum import Enum
 from pycurb import PyCurbObject
+from pycurb.utils import from_camelcase
+
+
+class SideOfStreet(Enum):
+    LEFT = 'left'
+    RIGHT = 'right'
+    UNKNOWN = 'unknown'
+
+
+class BaysAngle(Enum):
+    PARRALLEL = 'parallel'
+    PERPENDICULAR = 'perpendicular'
+    DIAGONAL = 'diagonal'
+
+
+class LocationStatus(Enum):
+    ACTIVE = 'active'
+    PLANNED = 'planned'
+    PROPOSED = 'proposed'
 
 
 class Location(PyCurbObject):
+    shst_ref_id: str
+    side_of_street: SideOfStreet
+    shst_location_start: float
+    shst_location_end: float
+    object_id: Optional[str]
+    derived_from: Optional[List[str]]
+    asset_type: str
+    asset_sub_type: Optional[str]
+    bays_angle: Optional[BaysAngle]
+    bays_count: Optional[int]
+    street_name: Optional[str]
+    status: Optional[LocationStatus]
 
-    fields = [
-        'shst_ref_id', 'side_of_street', 'shst_location_start',
-        'shst_location_end', 'derived_from', 'object_id', 'marker',
-        'bays_angle', 'bays_count', 'street_name'
-    ]
+    def __init__(self, **kwargs):
+        d = {from_camelcase(k): v for k, v in kwargs.items()}
 
-    def __init__(self,
-                 shst_ref_id,
-                 side_of_street,
-                 shst_location_start,
-                 shst_location_end,
-                 derived_from=None,
-                 object_id=None,
-                 marker=None,
-                 bays_angle=None,
-                 bays_count=None,
-                 street_name=None):
-        self.shst_ref_id = shst_ref_id
-        self.side_of_street = side_of_street
-        self.shst_location_start = shst_location_start
-        self.shst_location_end = shst_location_end
-        self.derived_from = derived_from
-        self.object_id = object_id
-        self.marker = marker
-        self.bays_angle = bays_angle
-        self.bays_count = bays_count
-        self.street_name = street_name
+        super().__init__(**d)
 
     def to_dict(self):
-        return super().to_dict(Location)
+        d = super().to_dict()
+
+        for k, v in d.items():
+            if isinstance(v, Enum):
+                d[k] = v.value
+
+        return d
 
     @classmethod
     def from_lr_feature(cls,
                         feature,
+                        asset_type,
                         object_id=None,
                         derived_from=None,
-                        marker=None,
+                        asset_subtype=None,
                         bays_angle=None,
                         bays_count=None,
-                        street_name=None):
-        if not feature:
-            return None
+                        street_name=None,
+                        status=None):
 
         props = feature['properties']
 
-        props['shstRefId'] = props['shstReferenceId']
-        props['shstLocationStart'] = props['section'][0]
-        props['shstLocationEnd'] = props['section'][1]
+        d = {}
+        d['shst_ref_id'] = props['shstReferenceId']
+        d['shst_location_start'] = props['start']
+        d['shst_location_end'] = props['end']
+        d['side_of_street'] = props['sideOfStreet']
+        d['asset_type'] = props[asset_type]
 
         if object_id:
-            props['objectId'] = props[object_id]
+            d['object_id'] = props[object_id]
         if derived_from:
-            props['derivedFrom'] = props[derived_from]
-        if marker:
-            props['marker'] = props[marker]
+            d['derived_from'] = props[derived_from]
+        if asset_subtype:
+            d['asset_subtype'] = props[asset_subtype]
         if bays_angle:
-            props['baysAngle'] = props[bays_angle]
+            d['bays_angle'] = props[bays_angle]
         if bays_count:
-            props['baysCount'] = props[bays_count]
+            d['bays_count'] = props[bays_count]
         if street_name:
-            props['streetName'] = props[street_name]
+            d['street_name'] = props[street_name]
+        if status:
+            d['status'] = props[status]
 
-        return cls.from_dict(props)
+        return cls.from_dict(d)
